@@ -1,5 +1,6 @@
-﻿using IPMission2;
+﻿using ALMission2;
 using System;
+using System.Runtime.InteropServices.ComTypes;
 
 internal class Program
 {
@@ -12,32 +13,20 @@ internal class Program
         number = int.Parse(System.Console.ReadLine());
 
         //Roll the dice
-        ThrowDice.RollDice(number);
+        ThrowDice td = new ThrowDice();
 
-        //Get the percentages
-        int twos = (rolls.Count(x => x == 2) / num) * 10);
-        int threes = (rolls.Count(x => x == 3) / num) * 10);
-        int fours = (rolls.Count(x ==> x == 4) / num) * 10);
-        int fives = (rolls.Count(x ==> x == 5) / num) * 10);
-        int sixes = (rolls.Count(x ==> x == 6) / num) * 10);
-        int sevens = (rolls.Count(x ==> x == 7) / num) * 10);
-        int eights = (rolls.Count(x ==> x == 8) / num) * 10);
-        int nines = (rolls.Count(x ==> x == 9) / num) * 10);
-        int tens = (rolls.Count(x ==> x == 10) / num) * 10);
-        int elevens = (rolls.Count(x ==> x == 11) / num) * 10);
-        int twelves = (rolls.Count(x ==> x == 12) / num) * 10);
+        int[] rolls = td.RollDice(number);
 
-        System.Console.WriteLine("DICE ROLLING SIMULATION RESULTS\n Each \"*\" represents 1% of the total number of rolls. \nTotal number of rolls = " + num);
-        System.Console.WriteLine("2: " + twos);
-        System.Console.WriteLine("3: " + threes);
-        System.Console.WriteLine("4: " + fours);
-        System.Console.WriteLine("5: " + fives);
-        System.Console.WriteLine("6: " + sixes);
-        System.Console.WriteLine("7: " + sevens);
-        System.Console.WriteLine("8: " + eights);
-        System.Console.WriteLine("9: " + nines);
-        System.Console.WriteLine("10: " + tens);
-        System.Console.WriteLine("11: " + elevens);
-        System.Console.WriteLine("12: " + twelves);
+        //Get the percentages and output it
+        System.Console.WriteLine("DICE ROLLING SIMULATION RESULTS\n Each \"*\" represents 1% of the total number of rolls. \nTotal number of rolls = " + number);
+        for (int i = 2; i <= 12; i++)
+        {
+            int percent = (int)(((double)rolls.Count(x => x == i) / number) * 100);
+            string stars = new string('*', percent);
+            System.Console.WriteLine($"{i}: {stars}");
+        }
+
+        //End the program
+        System.Console.WriteLine("Thanks for playing!");
     }
 }
